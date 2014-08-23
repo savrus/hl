@@ -8,7 +8,6 @@
 #include <vector>
 #include <cassert>
 #include "graph.hpp"
-#include "binheap.hpp"
 #include "kheap.hpp"
 
 // Data structures to implement Dijkstra-like algorithms
