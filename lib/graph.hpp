@@ -150,6 +150,19 @@ class Graph {
         return true;
     }
 
+    // Write file in DIMACS format
+    void write_dimacs(FILE *file) {
+        long long m;
+        for (Vertex v = 0; v < n; ++v) m += get_degree(v, true);
+        fprintf(file, "p sp %lld %lld\n", n, m);
+        for (Vertex v = 0; v < n; ++v) {
+            for (arc_iterator a = begin(v), e = end(v); a < e; ++a) {
+                long long u = v, w = a->head, l = a->length;
+                fprintf(file, "a %lld %lld %lld\n", u+1, w+1, l);
+            }
+        }
+    }
+
     // Read graph from file in METIS format
     //    n m [fmt] [ncon]  - header: fmt = ijk: i - s (vertex size) is present,
     //                                           j - w (vertex weights) are present,
@@ -221,6 +234,14 @@ public:
         if (read_dimacs(file, undirected)) { fclose(file); return true; } rewind(file);
         if (read_metis(file, undirected)) { fclose(file); return true; } fclose(file);
         return false;
+    }
+
+    // Write graph to file
+    bool write(char *filename) {
+        FILE *file;
+        if ((file = fopen(filename, "w")) == NULL) return false;
+        write_dimacs(file);
+        return ferror(file) ? (fclose(file) && false) : !fclose(file);
     }
 
     // Graph construction interface
