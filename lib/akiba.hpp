@@ -19,7 +19,7 @@ class Akiba : BasicDijkstra {
         clear();
         Vertex v = order[i];
         distance[v] = 0;
-        queue.update(v, 0);
+        update(v, 0);
         while (!queue.empty()) {
             Vertex u = queue.pop();
             Distance d = distance[u];
@@ -38,6 +38,7 @@ public:
     // Buld HHL from a vertex order
     void run(std::vector<Vertex> &order, Labeling &labeling) {
         assert(order.size() == g->get_n());
+        labeling.clear();
         for (size_t i = 0; i < order.size(); ++i) {
             iteration(i, false, order, labeling);
             iteration(i, true, order, labeling);
