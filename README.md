@@ -4,7 +4,7 @@ hl - Hub Labeling Algorithms
 *Hub Labeling* is a data structure used to find a distance between two vertices in a graph.
 It provides the excellent query time for real-world graphs such as road networks and social networks.
 Hub Labeling has two stages: preprocessing and querying.
-While the query algorith is simple, the preprocessing is much more involved and there are several preprocessing algorithms in the literature.
+While the query algorithm is simple, the preprocessing is much more involved and there are several preprocessing algorithms in the literature.
 
 There is an algorithm to find O(log n)-approximately optimal Hub Labels. However, it is slow.
 Practical labeling algorithms find a *Hierarchical Hub Labeling*.
@@ -15,12 +15,12 @@ In fact given an order one can build the minimum HHL with respect to this order.
 
 There are several programs in the repository:
 
-* `hhl` — find Hierarchical Hub Labeling (and the vertex order) using greedy algorithm
+* `hhl` — find Hierarchical Hub Labeling (and a vertex order) using greedy algorithm
 * `akiba` — construct Hierarchical Hub Labeling from a vertex order
 * `degree` — order vertices by their degree
 * `lcheck` — check labels
 
-### Buld
+### Build
 
 Just use `make` to build the project:
 ```
@@ -33,7 +33,7 @@ g++ -fopenmp -O3 -I./lib -o lcheck lcheck.cpp
 
 ### HHL
 
-Once you've buld the `hhl` program you can compute HHL for a graph, say `email.graph`:
+Once you've build the `hhl` program you can compute HHL for a graph, say `email.graph`:
 ```
 $ ./hhl email.graph
 Average label size 39.6134
@@ -42,7 +42,7 @@ Maximum label size 78
 real    0m1.165s
 ```
 The `hhl` program contains implementations of two greedy HHL algorithms: path-greedy and label-greedy (as defined in [1]).
-The default choise is path-greedy. To use label-greedy add `-w` argument:
+The default choice is path-greedy. To use label-greedy add `-w` argument:
 ```
 $ ./hhl -w email.graph
 Average label size 36.797
@@ -69,10 +69,10 @@ Average label size 39.6134
 Maximum label size 78
 ```
 
-If your CPU has Hyper Threading enabeld, use `-t` argument to specify the number of threads to be equal to the real number of cores.
-Performance may reduce dramaticaly if there are more threads than cores.
+If your CPU has Hyper Threading enabled, use `-t` argument to specify the number of threads to be equal to the real number of cores.
+Performance may reduce dramatically if there are more threads than cores.
 
-Keep in mind that `hhl` requires O(n^2) memory and the time complexity is O(n^3) (O(nm log n) is `-u` is set).
+Keep in mind that `hhl` requires O(n^2) memory and the time complexity is O(n^3) (O(nm log n) if `-u` is set).
 
 
 ### Akiba
@@ -97,7 +97,7 @@ $ ./akiba -o email.order email.graph
 Average label size 39.707
 Maximum label size 82
 ```
-Another simple way of ordering vertices is the degree order that works well for some social and computer networks: to order vertices by their degrees, beaking ties at random.
+Another simple way of ordering vertices is the degree order that works well for some social and computer networks: to order vertices by their degrees, breaking ties at random.
 Use `degree` program to find the degree order:
 ```
 $ ./degree -o email.order email.graph
@@ -105,7 +105,7 @@ $ ./akiba -o email.order email.graph
 Average label size 39.2462
 Maximum label size 89
 ```
-Akiba et al algorithm is much faster than greedy HHL algoriths. Furthermore, it requires a linear amount of memory, so `degree`+`akiba` can be used for large graphs:
+Akiba et al algorithm is much faster than greedy HHL algorithms. Furthermore, it requires a linear amount of memory, so `degree`+`akiba` can be used for large graphs:
 ```
 $ ./degree -o coAuthorsCiteseer.order coAuthorsCiteseer.graph
 $ ./akiba -o coAuthorsCiteseer.order coAuthorsCiteseer.graph
@@ -136,7 +136,7 @@ You can use any graph in DIMACS shortest path or METIS format. We suggest visiti
 
 ## Basic Reference
 
-Material covered in Sections 2, 3.1, 3.2, and A1 of [1] should be enough to understand `akiba` and `hhl` programs. Everyting else is out of the scope of this project. Those who seek deeper knowledge of the Hub Labeling topic are encouraged to read the other papers.
+Material covered in Sections 2, 3.1, 3.2, and A1 of [1] should be enough to understand `akiba` and `hhl` programs. Everything else is out of the scope of this project. Those who seek deeper knowledge of the Hub Labeling topic are encouraged to read the other papers.
 
 1. D. Delling, A.V. Goldberg, T. Pajor, and R. F. Werneck. *Robust Exact Distance Queries on Massive Networks.* Technical Report MSR-TR-2014-12, Microsoft Research, 2014. [link](http://research.microsoft.com/apps/pubs/default.aspx?id=208867)
 
