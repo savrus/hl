@@ -33,7 +33,7 @@ g++ -fopenmp -O3 -I./lib -o lcheck lcheck.cpp
 
 ### HHL
 
-Once you've build the `hhl` program you can compute HHL for a graph, say `email.graph`:
+Once you've built the `hhl` program you can compute HHL for a graph, say `email.graph`:
 ```
 $ ./hhl email.graph
 Average label size 39.6134
