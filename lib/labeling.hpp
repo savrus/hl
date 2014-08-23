@@ -46,6 +46,10 @@ public:
         label_d[u][forward].push_back(d);
     }
 
+    // Get labels
+    std::vector< std::vector<Vertex> > &get_label_hubs(Vertex u) { return label_v[u]; }
+    std::vector< std::vector<Vertex> > &get_label_distances(Vertex u) { return label_d[u]; }
+
     // Get maximum label size
     size_t get_max() const {
         size_t max = 0;
