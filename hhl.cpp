@@ -21,6 +21,7 @@ void usage(char *argv[]) {
               << "  -o ordering\tFile to write the vertex order" << std::endl
               << "  -l labeling\tFile to write the labeling" << std::endl
               << "  -t threads \tNumber of threads" << std::endl;
+              << "WARNING: performance may reduce dramatically when HyperThreading is active. Please bound the number of threads by real cores." << std::endl;
     std::exit(1);
 }
 
