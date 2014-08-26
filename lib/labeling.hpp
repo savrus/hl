@@ -120,20 +120,8 @@ public:
         }
     }
 
-    #if 0
-    // Print labels
-    void print() const {
-        for (Vertex v = 0; v < n; ++v) {
-            for (int side = 0; side < 2; ++side) {
-                std::cout << "L(" << v << "," << side << ") =";
-                for (size_t i = 0; i < label_v[v][side].size(); ++i) std::cout << " (" << label_v[v][side][i] << "," << label_d[v][side][i] << ")";
-                std::cout << std::endl;
-            }
-        }
-    }
-
     // Sort labels before making queries
-    void sort_labels() {
+    void sort() {
         for(Vertex v = 0; v < n; ++v) {
             for (int side = 0; side < 2; ++side) {
                 std::vector< std::pair<Vertex,Distance> > label(label_v[v][side].size());
@@ -147,5 +135,18 @@ public:
             }
         }
     }
+
+    #if 0
+    // Print labels
+    void print() const {
+        for (Vertex v = 0; v < n; ++v) {
+            for (int side = 0; side < 2; ++side) {
+                std::cout << "L(" << v << "," << side << ") =";
+                for (size_t i = 0; i < label_v[v][side].size(); ++i) std::cout << " (" << label_v[v][side][i] << "," << label_d[v][side][i] << ")";
+                std::cout << std::endl;
+            }
+        }
+    }
     #endif
+
 };

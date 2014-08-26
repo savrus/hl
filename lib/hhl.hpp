@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <omp.h>
 #include "graph.hpp"
 #include "dijkstra.hpp"
 #include "kheap.hpp"

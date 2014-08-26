@@ -36,17 +36,6 @@ template<typename V, typename K, unsigned k = 4> class KHeap {
         while(i > 0 && key[heap[i]] < key[heap[(i-1)/k]]) { swap(i, (i-1)/k); i = (i-1)/k; }
     }
 
-    // Extract v from the queue (if v is present)
-    void extract(V v) {
-        if (heap_pos[v] == invalid) return;
-        if (heap_pos[v] < --size) {
-            size_t pos = heap_pos[v];
-            swap(pos, size);
-            fixup(pos);
-        }
-        heap_pos[v] = invalid;
-    }
-
 public:
     KHeap(size_t n) : size(0), invalid(std::numeric_limits<size_t>::max()), heap(n), heap_pos(n, invalid), key(n) {}
 
@@ -59,6 +48,17 @@ public:
         if (heap_pos[v] == invalid) { heap_pos[v] = size++; heap[heap_pos[v]] = v; }
         key[v] = kk;
         fixup(heap_pos[v]);
+    }
+
+    // Extract v from the queue (if v is present)
+    void extract(V v) {
+        if (heap_pos[v] == invalid) return;
+        if (heap_pos[v] < --size) {
+            size_t pos = heap_pos[v];
+            swap(pos, size);
+            fixup(pos);
+        }
+        heap_pos[v] = invalid;
     }
 
     // Clear heap

@@ -2,7 +2,7 @@ hl - Hub Labeling Algorithms
 ==
 
 *Hub Labeling* is a data structure used to find a distance between two vertices in a graph.
-It provides the excellent query time for real-world graphs such as road networks and social networks.
+It provides excellent query time for real-world graphs such as road networks and social networks.
 Hub Labeling has two stages: preprocessing and querying.
 While the query algorithm is simple, the preprocessing is much more involved and there are several preprocessing algorithms in the literature.
 
@@ -19,6 +19,7 @@ There are several programs in the repository:
 * `akiba` — construct Hierarchical Hub Labeling from a vertex order
 * `degree` — order vertices by their degree
 * `lcheck` — check labels
+* `ghl` — find O(log n) approximate Hub Labeling
 
 ### Build
 
@@ -29,6 +30,7 @@ g++ -fopenmp -O3 -I./lib -o akiba akiba.cpp
 g++ -fopenmp -O3 -I./lib -o degree degree.cpp
 g++ -fopenmp -O3 -I./lib -o hhl hhl.cpp
 g++ -fopenmp -O3 -I./lib -o lcheck lcheck.cpp
+g++ -fopenmp -O3 -I./lib -o ghl ghl.cpp
 ```
 
 ### HHL
@@ -130,24 +132,67 @@ Maximum label size 78
 real    0m0.233s
 ```
 
+### GHL
+
+The `ghl` program uses O(log n)-approximation algorithm to find optimal Hub Labels.
+```
+$ ./ghl email.graph
+Average label size 30.3954
+Maximum label size 61
+
+real    1m1.278s
+```
+
+When we talk about the optimum we need to specify what we are talking about.
+Labels can be viewed as vectors whith i'th coordinate equal to the size of label of vertex i.
+Natural way to calculate a scalar measure from a vector is to get it's norm.
+The 1-norm is a sum of vector's components, which is the total labeling size.
+The 2-norm is a usual Euclidian norm.
+The infinity norm is the maximum vector's component size, which is the maximum label size.
+By default the `ghl` program optimizes the total label size.
+If you want to optimize another norm use `-p norm` option where `norm` is a float value.
+For the infinity norm, type '-p max':
+```
+$ ./ghl -p max email.graph
+Average label size 32.8438
+Maximum label size 43
+
+real    4m36.269s
+```
+
+Another tricky option of the `ghl` program is `-a alpha`. Alpha is a tradeoff parameter between the running time and the labeling quality.
+By default alpha is 1.1.
+Use alpha equal to 1.0 to obtain best possible labels:
+```
+$ ./ghl -a 1.0 email.graph
+Average label size 30.0159
+Maximum label size 59
+
+real    2m18.289s
+```
+
+The `ghl` program also has argument `-l labeling_file` to write the labels.
+
 ## Graphs
 
 You can use any graph in DIMACS shortest path or METIS format. We suggest visiting [Dimacs 10 Challenge](http://www.cc.gatech.edu/dimacs10/archive/clustering.shtml) page for general graphs and [Dimacs 9 Challenge](http://www.dis.uniroma1.it/challenge9/download.shtml) for road networks.
 
 ## Basic Reference
 
-Material covered in Sections 2, 3.1, 3.2, and A1 of [1] should be enough to understand `akiba` and `hhl` programs. Everything else is out of the scope of this project. Those who seek deeper knowledge of the Hub Labeling topic are encouraged to read the other papers.
+Material covered in Sections 2, 3.1, 3.2, and A1 of [1] should be enough to understand `akiba` and `hhl` programs. Those who seek deeper knowledge of the Hub Labeling topic are encouraged to read the other papers.
 
 1. D. Delling, A.V. Goldberg, T. Pajor, and R. F. Werneck. *Robust Exact Distance Queries on Massive Networks.* Technical Report MSR-TR-2014-12, Microsoft Research, 2014. [link](http://research.microsoft.com/apps/pubs/default.aspx?id=208867)
 
 ## Advanced Reference
 
-2. I. Abraham, D. Delling, A.V. Goldberg, and R.F. Werneck. *Hierarchical Hub Labelings for Shortest Paths.* In Proc. 20th European Symposium on Algorithms (ESA 2012), 2012. [link](http://research.microsoft.com/apps/pubs/default.aspx?id=168725)
+The algorithm used in the `ghl` program is presented and studied in [5]. Theoretical background can be found in [3] and [4]. Simple version of the algorithm is presented in [4].
 
-3. T. Akiba, Y. Iwata, and Y. Yoshida. *Fast Exact Shortest-path Distance Queries on Large Networks by Pruned Landmark Labeling.* In Proceedings of the 2013 ACM SIGMOD International Conference on Management of Data, SIGMOD'13, pages 349--360. ACM, 2013. [link](http://arxiv.org/abs/1304.4661)
+1. I. Abraham, D. Delling, A.V. Goldberg, and R.F. Werneck. *Hierarchical Hub Labelings for Shortest Paths.* In Proc. 20th European Symposium on Algorithms (ESA 2012), 2012. [link](http://research.microsoft.com/apps/pubs/default.aspx?id=168725)
 
-4. M. Babenko, A.V. Goldberg, A. Gupta, and V. Nagarajan. *Algorithms for Hub Label Optimization.* In Proc. 30th ICALP, pages 69--80. LNCS vol. 7965, Springer, 2013. [link](http://research.microsoft.com/apps/pubs/default.aspx?id=192125)
+2. T. Akiba, Y. Iwata, and Y. Yoshida. *Fast Exact Shortest-path Distance Queries on Large Networks by Pruned Landmark Labeling.* In Proceedings of the 2013 ACM SIGMOD International Conference on Management of Data, SIGMOD'13, pages 349--360. ACM, 2013. [link](http://arxiv.org/abs/1304.4661)
 
-5. E. Cohen, E. Halperin, H. Kaplan, and U. Zwick. *Reachability and Distance Queries via 2-hop Labels.* SIAM Journal on Computing, 32, 2003. [link](http://www.cs.tau.ac.il/~zwick/papers/labels-full.ps)
+3. M. Babenko, A.V. Goldberg, A. Gupta, and V. Nagarajan. *Algorithms for Hub Label Optimization.* In Proc. 30th ICALP, pages 69--80. LNCS vol. 7965, Springer, 2013. [link](http://research.microsoft.com/apps/pubs/default.aspx?id=192125)
 
-6. D. Delling, A.V. Goldberg, R. Savchenko, and R.F. Werneck. *Hub Labels: Theory and Practice.* In Proceedings of the 13th International Symposium on Experimental Algorithms (SEA'14), LNCS. Springer, 2014. [link](http://research.microsoft.com/apps/pubs/default.aspx?id=219802)
+4. E. Cohen, E. Halperin, H. Kaplan, and U. Zwick. *Reachability and Distance Queries via 2-hop Labels.* SIAM Journal on Computing, 32, 2003. [link](http://www.cs.tau.ac.il/~zwick/papers/labels-full.ps)
+
+5. D. Delling, A.V. Goldberg, R. Savchenko, and R.F. Werneck. *Hub Labels: Theory and Practice.* In Proceedings of the 13th International Symposium on Experimental Algorithms (SEA'14), LNCS. Springer, 2014. [link](http://research.microsoft.com/apps/pubs/default.aspx?id=219802)
