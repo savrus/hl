@@ -5,6 +5,9 @@
 
 #pragma once
 
+#include <algorithm>
+#include <functional>
+#include <limits>
 #include <cmath>
 #include <omp.h>
 #include "graph.hpp"
@@ -275,16 +278,43 @@ public:
         }
 
         // GHLp lazy-update queue
+        #if 0
+        // Single-tread version
         AMDS &amds = amds_pt[0];
         while (!queue.empty()) {
-            Vertex v = queue.top();
+            Vertex v = queue.pop();
             double r = amds.run(v, p, density[v]/alpha);
-            if (r < std::numeric_limits<double>::epsilon()) queue.extract(v);
-            else if (r < density[v]/alpha) {
+            if (r > std::numeric_limits<double>::epsilon()) {
                 density[v] = r;
                 queue.update(v, 1.0/r);
-            } else increase_cover(v, amds);
+                if (r - density[v]/alpha > std::numeric_limits<double>::epsilon()) increase_cover(v, amds);
+            }
         }
+        #else
+        // Multy-thread version
+        while (!queue.empty()) {
+            std::vector< std::pair<double, std::pair<Vertex, int> > > top(num_threads, std::make_pair(0.0, std::make_pair(none, -1)));
+            for (int i = 0; i < num_threads && !queue.empty(); ++i) top[i].second = std::make_pair(queue.pop(), i);
+            #pragma omp parallel
+            {
+                int i = omp_get_thread_num();
+                Vertex v = top[i].second.first;
+                if (v != none) top[i].first = amds_pt[i].run(v, p, density[v]/alpha);
+            }
+            std::sort(top.begin(), top.end(), std::greater<std::pair<double, std::pair<Vertex, int> > >());
+            for (int i = 0; i < num_threads; ++i) {
+                Vertex v = top[i].second.first;
+                if (v != none && top[i].first > std::numeric_limits<double>::epsilon()) {
+                    density[v] = top[i].first;
+                    queue.update(v, 1.0/density[v]);
+                }
+            }
+            Vertex v = top[0].second.first;
+            if (top[0].first - density[v]/alpha > std::numeric_limits<double>::epsilon()) {
+                increase_cover(v, amds_pt[top[0].second.second]);
+            }
+        }
+        #endif
 
         // Order hubs in each label
         labeling.sort();
