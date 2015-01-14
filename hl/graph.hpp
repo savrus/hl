@@ -43,6 +43,17 @@ class Graph {
     std::vector< std::vector<Arc*> > a_end;           // Index of last outgoing/incoming arc + 1
     std::vector< std::pair<Vertex, Arc> > tmp_arcs;   // Temporary list of arcs
 
+    // Reset graph
+    void reset() {
+        n = 0; m = 0;
+        arcs.clear();
+        tmp_arcs.clear();
+        for (int i = 0; i < 2; ++i) {
+            a_begin[i].clear();
+            a_end[i].clear();
+        }
+    }
+
     // Compare arcs by head
     struct cmp_by_head {
         bool operator() (const std::pair<Vertex,Arc> &xx, const std::pair<Vertex,Arc> &yy) {
@@ -213,6 +224,29 @@ class Graph {
         return true;
     }
 
+    // Read graph from file in SNAP format
+    //    # Nodes: n Edges: m    - header: n vertices, m edges
+    //    #                      - comment line
+    //    u v                    - arc (u,v) with unit length
+    bool read_snap(FILE* file, bool undirected = false) {
+        char buf[512];
+        long long u,v,w,m;
+        bool inited = false;
+        while (fgets(buf, sizeof(buf), file)) {
+            if (buf[0] == '#') {
+                if (sscanf(buf, "# Nodes: %lld Edges: %lld", &n, &m) == 2) {
+                    if (inited) return false; inited = true;
+                }
+                for (int c = buf[strlen(buf)-1]; c != '\n' && c != EOF; c = fgetc(file));
+            } else {
+                if (sscanf(buf, "%lld %lld", &u, &v) != 2) return false;
+                if (!add_tmp_arc(u, v, 1, undirected)) return false;
+            }
+        }
+        finalize();
+        return true;
+    }
+
 public:
     Graph() : n(0), m(0), a_begin(2), a_end(2) {}
 
@@ -233,8 +267,9 @@ public:
     bool read(char *filename, bool undirected = false) {
         FILE *file;
         if ((file = fopen(filename, "r")) == NULL) return false;
-        if (read_dimacs(file, undirected)) { fclose(file); return true; } rewind(file);
-        if (read_metis(file, undirected)) { fclose(file); return true; } fclose(file);
+        if (read_dimacs(file, undirected)) { fclose(file); return true; } rewind(file); reset();
+        if (read_metis(file, undirected)) { fclose(file); return true; } rewind(file); reset();
+        if (read_snap(file, undirected)) { fclose(file); return true; } fclose(file); reset();
         return false;
     }
 
