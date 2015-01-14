@@ -11,6 +11,8 @@
 #include "kheap.hpp"
 #include "labeling.hpp"
 
+namespace hl {
+
 // Hierarchical Hub Labeling implementation
 class HHL {
     // Class to store all shortest paths
@@ -208,3 +210,6 @@ public:
         }
     }
 };
+
+} // namespace hl
+

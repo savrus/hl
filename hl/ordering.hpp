@@ -11,6 +11,8 @@
 #include <iostream>
 #include "graph.hpp"
 
+namespace hl {
+
 // Class to read/write order
 struct Order {
     // Write vertex order to file
@@ -36,3 +38,6 @@ struct Order {
         return file.eof() && !file.fail();
     }
 };
+
+} // namespace hl
+

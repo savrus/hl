@@ -15,6 +15,8 @@
 #include <string.h>
 #include <errno.h>
 
+namespace hl {
+
 // Types for vertices and distances to avoid typing 'int' for almost every variable
 typedef int Vertex;
 typedef int Distance;
@@ -254,3 +256,6 @@ public:
     // Construct adjacency lists from the temporary list of arcs
     void finilize() { init_arcs(); }
 };
+
+} // namespace hl
+

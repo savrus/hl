@@ -11,6 +11,8 @@
 #include "graph.hpp"
 #include "ordering.hpp"
 
+using namespace hl;
+
 void usage(char *argv[]) {
     std::cout << "Usage: " << argv[0] << " -o ordering graph" << std::endl
               << "  -o ordering\tFile with the vertex order" << std::endl;

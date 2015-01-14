@@ -14,6 +14,8 @@
 #include "labeling.hpp"
 #include "ordering.hpp"
 
+using namespace hl;
+
 void usage(char *argv[]) {
     std::cout << "Usage: " << argv[0] << " [-w] [-l labeling] [-o ordering] [-t threads] graph" << std::endl
               << "  -w         \tUse label-greedy algorithm instead of path-greedy" << std::endl

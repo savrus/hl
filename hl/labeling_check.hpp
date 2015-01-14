@@ -9,6 +9,8 @@
 #include "labeling.hpp"
 #include "dijkstra.hpp"
 
+namespace hl {
+
 // Labeling checker implementation
 class LabelingCheck {
     Graph &g;
@@ -36,3 +38,6 @@ public:
         return res;
     }
 };
+
+} // namespace hl
+

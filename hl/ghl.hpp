@@ -15,6 +15,8 @@
 #include "kheap.hpp"
 #include "labeling.hpp"
 
+namespace hl {
+
 // General Hub Labeling implementation
 class GHL {
     // Class to store all shortest paths
@@ -320,3 +322,6 @@ public:
         labeling.sort();
     }
 };
+
+} // namespace hl
+

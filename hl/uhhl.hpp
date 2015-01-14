@@ -13,6 +13,8 @@
 #include "kheap.hpp"
 #include "labeling.hpp"
 
+namespace hl {
+
 // Hierarchical Hub Labeling implementation for unique shortest paths (USP)
 class UHHL {
     // Class to store shortest paths trees (SPT)
@@ -284,3 +286,6 @@ public:
         }
     }
 };
+
+} // namespace hl
+

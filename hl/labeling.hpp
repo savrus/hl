@@ -15,6 +15,8 @@
 #include <istream>
 #include "graph.hpp"
 
+namespace hl {
+
 // Class to store labels
 class Labeling {
     std::vector< std::vector< std::vector<Vertex> > > label_v;     // Lists of forward/reverse hubs
@@ -150,3 +152,6 @@ public:
     #endif
 
 };
+
+} // namespace hl
+

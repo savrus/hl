@@ -10,6 +10,8 @@
 #include "graph.hpp"
 #include "kheap.hpp"
 
+namespace hl {
+
 // Data structures to implement Dijkstra-like algorithms
 class BasicDijkstra {
 protected:
@@ -71,3 +73,6 @@ public:
         }
     }
 };
+
+} // namespace hl
+

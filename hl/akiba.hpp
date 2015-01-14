@@ -11,6 +11,8 @@
 #include "dijkstra.hpp"
 #include "labeling.hpp"
 
+namespace hl {
+
 // Akiba et. al. 'pruned labeling' algorithm implementation
 class Akiba : BasicDijkstra {
 
@@ -45,3 +47,6 @@ public:
         }
     }
 };
+
+} // namespace hl
+

@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <limits>
 
+namespace hl {
+
 // k-way heap implementation
 template<typename V, typename K, unsigned k = 4> class KHeap {
     size_t size;                    // current number of elements in the heap
@@ -67,3 +69,6 @@ public:
         size = 0;
     }
 };
+
+} // namespace hl
+

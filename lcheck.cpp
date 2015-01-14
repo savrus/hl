@@ -11,6 +11,8 @@
 #include "labeling.hpp"
 #include "labeling_check.hpp"
 
+using namespace hl;
+
 void usage(char *argv[]) {
     std::cout << "Usage: " << argv[0] << " [-c] [-l labeling] [-t threads] graph" << std::endl
               << "  -c         \tCheck labals (without this option print statistics only)" << std::endl

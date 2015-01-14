@@ -12,6 +12,8 @@
 #include "ghl.hpp"
 #include "labeling.hpp"
 
+using namespace hl;
+
 void usage(char *argv[]) {
     std::cout << "Usage: " << argv[0] << " [-p norm] [-a alpha] [-l labeling] [-t threads] graph" << std::endl
               << "  -p norm    \tApproximate p-norm of labels. Use '-p max' to approximate maximum label size" << std::endl
