@@ -104,7 +104,7 @@ class GHL {
         }
     };
 
-    // Proxy class for labeling to kee track if v is in u's label
+    // Proxy class for labeling to keep track if v is in u's label
     class ProxyLabeling {
         Labeling *l;                                              // Labeling
         std::vector< std::vector< std::vector<bool> > > inlabel;  // inlabel[v][forward][u] is true if v is already in u's label

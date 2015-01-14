@@ -32,7 +32,7 @@ public:
     // Find u-v distance
     Distance query(Vertex u, Vertex v, bool f = true) {
         Distance r = infty;
-        for ( size_t i=0, j=0; i < label_v[u][f].size() && j < label_v[v][!f].size(); ){
+        for (size_t i=0, j=0; i < label_v[u][f].size() && j < label_v[v][!f].size();) {
             if (label_v[u][f][i] == label_v[v][!f][j]) {
                 assert(label_d[u][f][i] < infty - label_d[v][!f][j]);
                 r = std::min(r, label_d[u][f][i++] + label_d[v][!f][j++]);
@@ -60,6 +60,7 @@ public:
                 max = std::max(max, label_v[v][side].size());
         return max;
     }
+
     // Get average label size
     double get_avg() const {
         long long total = 0;
@@ -114,7 +115,7 @@ public:
 
     // Clear labels
     void clear() {
-        for(Vertex v = 0; v < n; ++v) {
+        for (Vertex v = 0; v < n; ++v) {
             for (int side = 0; side < 2; ++side) {
                 label_v[v][side].clear();
                 label_d[v][side].clear();
@@ -124,7 +125,7 @@ public:
 
     // Sort labels before making queries
     void sort() {
-        for(Vertex v = 0; v < n; ++v) {
+        for (Vertex v = 0; v < n; ++v) {
             for (int side = 0; side < 2; ++side) {
                 std::vector< std::pair<Vertex,Distance> > label(label_v[v][side].size());
                 for (size_t i = 0; i < label_v[v][side].size(); ++i)

@@ -148,7 +148,7 @@ class Graph {
             } else if (buf[0] == 'c') continue;
             else return false;
         }
-        finilize();
+        finalize();
         return true;
     }
 
@@ -209,7 +209,7 @@ class Graph {
                 }
             } else return false;
         } while (c != EOF);
-        finilize();
+        finalize();
         return true;
     }
 
@@ -247,14 +247,14 @@ public:
     }
 
     // Graph construction interface
-    // User should set n, add some arcs, and call finilize()
+    // User should set n, add some arcs, and call finalize()
 
     // Set the number of vertices
     void set_n(Vertex nn) { n = nn; };
     // Add (u,v) arc (with (v,u) arc if undirected) to the temporary list of arcs
     void add_arc(Vertex u, Vertex v, Distance w, bool undirected = false) { bool r = add_tmp_arc(u, v, w, undirected); assert(r); }
     // Construct adjacency lists from the temporary list of arcs
-    void finilize() { init_arcs(); }
+    void finalize() { init_arcs(); }
 };
 
 } // namespace hl
