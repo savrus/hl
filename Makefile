@@ -1,5 +1,5 @@
-CXXFLAGS = -fopenmp -O3 -I./lib
-LIB=lib/*.hpp
+CXXFLAGS = -fopenmp -O3 -I./hl
+LIB=hl/*.hpp
 PROGRAMS= hhl akiba degree lcheck ghl
 
 all: $(PROGRAMS)
