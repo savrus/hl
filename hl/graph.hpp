@@ -143,13 +143,13 @@ class Graph {
     //     c bla-bla  - comment line
     //     a u v w    - arc (u,v) with length w
     bool read_dimacs(FILE *file, bool undirected = false) {
-        char buf[512], c;
+        char buf[512];
         long long u,v,w,m;
         bool inited = false;
         while (fgets(buf, sizeof(buf), file) != NULL) {
             if (buf[strlen(buf)-1] != '\n') {
                 if (buf[0] != 'c') return false;
-                while ((c = fgetc(file)) != '\n' && c != EOF);
+                while(!feof(file) && fgetc(file) != '\n');
             } else if (buf[0] == 'p') {
                 if (inited) return false; inited = true;
                 if (sscanf(buf, "p sp %lld %lld", &n, &m) != 2) return false;
@@ -239,6 +239,7 @@ class Graph {
                 }
                 for (int c = buf[strlen(buf)-1]; c != '\n' && c != EOF; c = fgetc(file));
             } else {
+                if (buf[strlen(buf)-1] != '\n' && !feof(file)) return false;
                 if (sscanf(buf, "%lld %lld", &u, &v) != 2) return false;
                 if (!add_tmp_arc(u, v, 1, undirected)) return false;
             }
