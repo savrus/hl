@@ -311,5 +311,4 @@ public:
     void finalize() { init_arcs(); }
 };
 
-} // namespace hl
-
+}

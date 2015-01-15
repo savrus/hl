@@ -66,5 +66,4 @@ public:
     }
 };
 
-} // namespace hl
-
+}

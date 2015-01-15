@@ -341,5 +341,4 @@ public:
     }
 };
 
-} // namespace hl
-
+}

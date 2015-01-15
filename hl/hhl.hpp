@@ -229,5 +229,4 @@ public:
     }
 };
 
-} // namespace hl
-
+}

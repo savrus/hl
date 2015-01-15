@@ -305,5 +305,4 @@ public:
     }
 };
 
-} // namespace hl
-
+}
