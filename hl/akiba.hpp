@@ -43,6 +43,7 @@ class Akiba : BasicDijkstra {
         while (!queue.empty()) {
             Vertex u = queue.pop();
             Distance d = distance[u];
+            // We use i for the hub id (instead of v) so the labels are already sorted by ids
             labeling.add(u, !forward, i, d);
             for (Graph::arc_iterator a = g->begin(u, forward), end = g->end(u, forward); a < end; ++a) {
                 Distance dd = d + a->length;

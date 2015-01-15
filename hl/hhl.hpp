@@ -185,6 +185,7 @@ public:
             std::vector<Vertex> d;
             for (int forward = 0; forward < 2; ++forward) {
                 sp.get_descendants(w, w, d, forward);
+                // We use wi for the hub id (instead of w) so the labels are already sorted by ids
                 for(size_t i = 0; i < d.size(); ++i) labeling.add(d[i], !forward, wi, sp.get_distance(d[i],w,!forward));
             }
 
