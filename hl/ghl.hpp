@@ -313,7 +313,7 @@ public:
         #else
         // Multy-thread version
         while (!queue.empty()) {
-            std::vector< std::pair<double, std::pair<Vertex, int> > > top(num_threads, std::make_pair(0.0, std::make_pair(none, -1)));
+            std::vector< std::pair<double, std::pair<Vertex, int> > > top(num_threads, std::make_pair(-1.0, std::make_pair(none, -1)));
             for (int i = 0; i < num_threads && !queue.empty(); ++i) top[i].second = std::make_pair(queue.pop(), i);
             #pragma omp parallel
             {

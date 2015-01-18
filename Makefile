@@ -1,4 +1,4 @@
-CXXFLAGS = -fopenmp -O3 -I./hl
+CXXFLAGS = -Wall -Werror -fopenmp -O3 -I./hl
 LIB=hl/*.hpp
 PROGRAMS= hhl akiba degree lcheck ghl
 

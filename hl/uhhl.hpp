@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <cassert>
 #include <omp.h>
 #include "graph.hpp"
 #include "dijkstra.hpp"
@@ -53,7 +54,7 @@ class UHHL {
                 clear();
             }
         public:
-            USPDijkstra(Graph &g) : hops(g.get_n()), BasicDijkstra(g) {}
+            USPDijkstra(Graph &g) : BasicDijkstra(g), hops(g.get_n()) {}
 
             Distance get_distance(Vertex v) { return distance[v]; }  // Distance from source to v
             Vertex get_parent(Vertex v) { return parent[v]; }        // v's parent in the shortest path tree
@@ -131,7 +132,7 @@ class UHHL {
         // Get distance(u,v)
         Distance get_distance(Vertex u, Vertex v, bool forward = true) { return forward ? dist[u][v] : dist[v][u]; }
         // Get v's parent in u's 'forward' SPT
-        Distance get_parent(Vertex u, Vertex v, bool forward = true) { return parent[forward][u][v]; }
+        Vertex get_parent(Vertex u, Vertex v, bool forward = true) { return parent[forward][u][v]; }
 
         // Get v's descendants in u's SPT
         void get_descendants(Vertex u, Vertex v, std::vector<Vertex> &d, bool forward = true) {
@@ -203,6 +204,7 @@ class UHHL {
     double weight(Vertex v, int type) {
         if (type == 0) return 1.0/cover_size[v];
         else if (type == 1) return static_cast<double>(sp_size[v])/cover_size[v];
+        else assert(0);
     }
 
 public:

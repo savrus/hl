@@ -24,6 +24,7 @@
 #pragma once
 
 #include <omp.h>
+#include <cassert>
 #include "graph.hpp"
 #include "dijkstra.hpp"
 #include "kheap.hpp"
@@ -133,6 +134,7 @@ class HHL {
     double weight(Vertex v, int type) {
         if (type == 0) return 1.0/cover_size[v];
         else if (type == 1) return static_cast<double>(sp_size[v])/cover_size[v];
+        else assert(0);
     }
 
 public:

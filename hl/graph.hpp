@@ -36,9 +36,9 @@
 namespace hl {
 
 // Types for vertices and distances to avoid typing 'int' for almost every variable
-typedef int Vertex;
+typedef unsigned int Vertex;
 typedef int Distance;
-static const Vertex none = -1;
+static const Vertex none = -1U;
 static const Distance infty = std::numeric_limits<Distance>::max();
 
 // Arc class
@@ -96,7 +96,7 @@ class Graph {
 
     // Construct adjacency lists from the temporary list of arcs
     void init_arcs() {
-        std::vector< std::pair<int, Arc> > &a = tmp_arcs;
+        std::vector< std::pair<Vertex, Arc> > &a = tmp_arcs;
         size_t i;
         // Remove redundant arcs
         std::sort(a.begin(), a.end(), cmp_by_direction());
@@ -204,7 +204,7 @@ class Graph {
     bool read_metis(FILE *file, bool undirected = false) {
         int c, i = 0, fmt = 0, ncon = 0, skip = 0;
         long long elem = 0;
-        Vertex v = 0, head;
+        Vertex v = 0, head = none;
         bool newline = true, inelem = false;
         do {
             c = fgetc(file);
@@ -248,7 +248,7 @@ class Graph {
     //    u v                    - arc (u,v) with unit length
     bool read_snap(FILE* file, bool undirected = false) {
         char buf[512];
-        long long u,v,w,m;
+        long long u,v,m;
         bool inited = false;
         while (fgets(buf, sizeof(buf), file)) {
             if (buf[0] == '#') {
