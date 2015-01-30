@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "graph.hpp"
+#include "ordering.hpp"
 #include <vector>
 #include <algorithm>
 #include <utility>
 #include <iostream>
 #include <cstdlib>
 #include <string.h>
-#include "graph.hpp"
-#include "ordering.hpp"
 
 using namespace hl;
 

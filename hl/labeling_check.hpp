@@ -23,10 +23,10 @@
 
 #pragma once
 
-#include <omp.h>
 #include "graph.hpp"
 #include "labeling.hpp"
 #include "dijkstra.hpp"
+#include <omp.h>
 
 namespace hl {
 

@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include "graph.hpp"
 #include <vector>
 #include <limits>
 #include <cassert>
@@ -31,7 +32,6 @@
 #include <utility>
 #include <fstream>
 #include <istream>
-#include "graph.hpp"
 
 namespace hl {
 

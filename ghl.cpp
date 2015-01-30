@@ -21,14 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "graph.hpp"
+#include "ghl.hpp"
+#include "labeling.hpp"
 #include <vector>
 #include <iostream>
 #include <cstdlib>
 #include <omp.h>
 #include <string.h>
-#include "graph.hpp"
-#include "ghl.hpp"
-#include "labeling.hpp"
 
 using namespace hl;
 

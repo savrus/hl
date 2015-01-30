@@ -23,11 +23,11 @@
 
 #pragma once
 
-#include <vector>
-#include <cassert>
 #include "graph.hpp"
 #include "dijkstra.hpp"
 #include "labeling.hpp"
+#include <vector>
+#include <cassert>
 
 namespace hl {
 

@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "graph.hpp"
+#include "labeling.hpp"
+#include "labeling_check.hpp"
 #include <vector>
 #include <iostream>
 #include <cstdlib>
 #include <omp.h>
 #include <string.h>
-#include "graph.hpp"
-#include "labeling.hpp"
-#include "labeling_check.hpp"
 
 using namespace hl;
 

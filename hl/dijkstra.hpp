@@ -23,10 +23,10 @@
 
 #pragma once
 
-#include <vector>
-#include <cassert>
 #include "graph.hpp"
 #include "kheap.hpp"
+#include <vector>
+#include <cassert>
 
 namespace hl {
 

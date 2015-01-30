@@ -25,12 +25,12 @@
 
 #pragma once
 
-#include <cassert>
-#include <omp.h>
 #include "graph.hpp"
 #include "dijkstra.hpp"
 #include "kheap.hpp"
 #include "labeling.hpp"
+#include <cassert>
+#include <omp.h>
 
 namespace hl {
 

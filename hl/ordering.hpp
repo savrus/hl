@@ -23,11 +23,11 @@
 
 #pragma once
 
+#include "graph.hpp"
 #include <vector>
 #include <fstream>
 #include <istream>
 #include <iostream>
-#include "graph.hpp"
 
 namespace hl {
 
