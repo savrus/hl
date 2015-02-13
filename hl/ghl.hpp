@@ -275,9 +275,9 @@ public:
         queue(n),
         proxy(n),
         density(n)
-        {
-            for (int i = 0; i < num_threads; ++i) amds_pt.push_back(AMDS(g, sp, proxy));
-        }
+    {
+        for (int i = 0; i < num_threads; ++i) amds_pt.push_back(AMDS(g, sp, proxy));
+    }
 
     // Build GHLp labels for p-norm labels
     void run(Labeling &labeling, float alpha = 1.1, float p = 1.0) {
